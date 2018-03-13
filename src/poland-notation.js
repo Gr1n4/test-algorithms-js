@@ -8,6 +8,16 @@
  * Так же необходимо сделать exceptions если со строкой что то не так.
  */
 
-function getSumPolandAnotationRec(str) {
+const GetSumPolandAnotation = (function() {
+  function GetSumPolandAnotation() {}
 
-}
+  GetSumPolandAnotation.prototype.getSumPolandAnotationRec = function(str) {
+
+  };
+
+  GetSumPolandAnotation.prototype.getSumPolandAnotationLiner = function(str) {
+
+  };
+
+  return GetSumPolandAnotation;
+})();
