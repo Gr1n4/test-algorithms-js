@@ -1,6 +1,4 @@
 module.exports = function (config) {
-  console.log('proccess env -> ');
-  console.log(process.env['NODE_ENV']);
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
