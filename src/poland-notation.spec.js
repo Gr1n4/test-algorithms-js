@@ -31,7 +31,6 @@ describe('Get sum polland anotation', () => {
       expect(() => polNot.getSumPolandAnotationRec('1 2 / 3 4 * 5 6 7 + 9 + - *')).toThrowError('Wrong stack of operations');
     });
 
-
     it('Should exception wrong operations', () => {
       expect(() => polNot.getSumPolandAnotationRec('1 2 &')).toThrowError('Wrong operations');
       expect(() => polNot.getSumPolandAnotationRec('3 1 2 + (')).toThrowError('Wrong operations');

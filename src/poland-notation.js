@@ -15,20 +15,19 @@
 const GetSumPolandAnotation = (function() {
   function GetSumPolandAnotation(string) {}
 
-  GetSumPolandAnotation.prototype.getSumPolandAnotationRec = function recFn(str) {
-    console.log('start', str);
-    if (/[^\d\s\+\-\*\/]/.test(str)) {
+  GetSumPolandAnotation.prototype.getSumPolandAnotationRec = function(str) {
+    if (/[^\d\s\+\-\*\/\.]/.test(str)) {
       throw new Error('Wrong operations');
     }
 
-    let countOfOperators = str.match(/[\*\/\+\-]/g).length;
-    let countOfNumbers = str.match(/\d+/g).length;
+    let operators = str.match(/[\*\/\+\-](?!\d)/g);
+    let numbers = str.match(/(\d?\.?\d+)/g);
 
-    if (countOfOperators === countOfNumbers) {
+    if (operators.length === numbers.length) {
       throw new Error('Wrong stack of numbers');
     }
 
-    if (countOfOperators !== countOfNumbers - 1) {
+    if (operators.length !== numbers.length - 1) {
       throw new Error('Wrong stack of operations');
     }
 
@@ -52,11 +51,9 @@ const GetSumPolandAnotation = (function() {
     str = arr.join(' ');
 
     if (/[\*\/\+\-](?!\d)/.test(str)) {
-      console.log('start rec', str);
-      return recFn(str);
+      return this.getSumPolandAnotationRec(str);
     }
 
-    console.log('success', +str);
     return +str;
   };
 
