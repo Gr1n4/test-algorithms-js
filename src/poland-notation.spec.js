@@ -1,5 +1,5 @@
 describe('Get sum polland anotation', () => {
-  let polNot
+  let polNot;
 
   beforeEach(() => {
     polNot = new GetSumPolandAnotation();
@@ -63,6 +63,10 @@ describe('Get sum polland anotation', () => {
       expect(() => polNot.getSumPolandAnotationLiner('1 2 / 3 4 * 5 6 7 + 9 + - *')).toThrowError('Wrong stack of operations');
     });
 
+    it('Should exception wrong stack of numbers', () => {
+      expect(() => polNot.getSumPolandAnotationLiner('3 + 2 2 - /')).toThrowError('Wrong stack of numbers');
+    });
+
     it('Should call once', () => {
       let spy = spyOn(polNot, 'getSumPolandAnotationLiner').and.callThrough();
       polNot.getSumPolandAnotationLiner('1 23 4 + *');
@@ -76,10 +80,6 @@ describe('Get sum polland anotation', () => {
 
     it('Should exception wrong string', () => {
       expect(() => polNot.getSumPolandAnotationLiner('3 2 2 - /')).toThrowError('Wrong string');
-    });
-
-    it('Should exception wrong stack of numbers', () => {
-      expect(() => polNot.getSumPolandAnotationLiner('3 + 2 2 - /')).toThrowError('Wrong stack of numbers');
     });
 
   });
