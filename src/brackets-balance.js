@@ -1,7 +1,8 @@
-
 'use strict';
 
 /**
+ * 10:35 - 11:20
+ * 14:40 - 15:40
  * Должен возвращаеть true или false.
  * Проверять строку на баланс скобок,
  * Т.е. вот такое выражение сбалансировано: '(()())()',
@@ -15,7 +16,21 @@
 const BracketsBalance = (function() {
   function BracketsBalance() {}
 
-  BracketsBalance.prototype.check = function(str) {}
+  BracketsBalance.prototype.check = function(str) {
+    if (/[^\(\)\{\}\[\]]/.test(str)) {
+      return false;
+    }
+
+    while(/(\{\}|\[\]|\(\))/.test(str)) {
+      str = str.replace(/(\{\}|\[\]|\(\))/, '');
+    }
+
+    if (str.length) {
+      return false;
+    }
+
+    return true;
+  };
 
   return BracketsBalance;
 })();
