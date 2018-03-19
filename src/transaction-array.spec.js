@@ -2,7 +2,7 @@
 
 describe('Transaction Array', () => {
   let arr
-    , ta1 
+    , ta1
     , ta2;
 
   beforeEach(() => {

@@ -9,38 +9,34 @@ const SortCheck = (function() {
   function SortCheck() {}
 
   SortCheck.prototype.check = function(arr) {
+    if (arr.length < 3) {
+      return true;
+    }
+
     let result = true;
-    let sortedByIncrease = false;
+    let sortedByIncrease;
+    let index = 0;
 
-    for (let i = 0; i < arr.length; i++) {
-      if (i === 0 || i === arr.length - 1) {
-        continue;
-      }
-
-      if (i === 1) {
-        if (arr[i - 1] <= arr[i] && arr[i] <= arr[i + 1]) {
-          sortedByIncrease = true;
-          continue;
-        }
-        if (arr[i - 1] >= arr[i] && arr[i] >= arr[i + 1]) {
-          continue;
-        }
-
-        result = false;
+    for (let i = 1; i < arr.length - 1; i++) {
+      if (arr[i - 1] < arr[i]) {
+        index = i + 1;
+        sortedByIncrease = true;
         break;
       }
 
-      if (sortedByIncrease
-        && (arr[i - 1] <= arr[i])
-        && (arr[i] <= arr[i + 1])
-      ) {
+      if (arr[i - 1] > arr[i]) {
+        index = i + 1;
+        sortedByIncrease = false;
+        break;
+      }
+    }
+
+    for (let i = index; i < arr.length; i++) {
+      if (sortedByIncrease && (arr[i - 1] <= arr[i])) {
         continue;
       }
 
-      if (!sortedByIncrease
-        && (arr[i - 1] >= arr[i])
-        && (arr[i] >= arr[i + 1])
-      ) {
+      if (!sortedByIncrease && (arr[i - 1] >= arr[i])) {
         continue;
       }
 

@@ -1,60 +1,82 @@
 // 11:40 - 12:00
 // 12:05 - 12:18
 // ~33 min
+// 16:10 - 16:50
+// 17:35 -
 
 'use strict';
 
 const TransactionArray = (function() {
+
+  let histories = [];
+
   function TransactionArray(arr) {
+    let historyIndex = histories.findIndex(some => some.arr === arr);
+
+    if (historyIndex !== -1) {
+      this._history = histories[historyIndex].history;
+    } else {
+      histories.push({
+        history: [],
+        arr
+      });
+      this._history = histories[histories.length - 1].history;
+    }
+
     this._arr = arr;
-    this._history = arr.map(item => ({
-      isCommited: true,
-      method: 'push',
-      value: item
-    }));
   }
 
   TransactionArray.prototype.push = function(item) {
-    this._arr.push(item);
+    let index = this._arr.push(item) - 1;
     this._history.push({
       isCommited: false,
-      method: 'push',
-      value: item
+      index,
+      instance: this
     });
   };
 
   TransactionArray.prototype.unshift = function(item) {
     this._arr.unshift(item);
+    this._history.forEach(item => item.index++);
     this._history.push({
       isCommited: false,
-      method: 'unshift',
-      value: item
+      index: 0,
+      instance: this
     });
   };
 
   TransactionArray.prototype.commit = function() {
-    this._history.forEach(item => item.isCommited = true);
+    this._history.forEach(item => {
+      if (item.instance !== this) {
+        return;
+      }
+
+      item.isCommited = true;
+    });
   };
 
   TransactionArray.prototype.rollback = function() {
-    this._history = this._history
-      .reverse()
-      .filter(item => {
-        if (item.isCommited) {
-          return true;
+    for (let i = 0; i < this._history.length; i++) {
+      if (this._history[i].instance !== this) {
+        continue;
+      }
+
+      if (this._history[i].isCommited) {
+        continue;
+      }
+
+      this._arr.splice(this._history[i].index, 1);
+
+      this._history.forEach(item => {
+        if (item.index > this._history[i].index) {
+          item.index--;
         }
+      });
 
-        let arr = [...this._arr];
+      this._history.splice(i, 1);
 
-        if (item.method === 'push') {
-          arr = arr.reverse();
-        }
-
-        let index = arr.findIndex(some => some === item.value);
-        this._arr.splice(item.method === 'push' ? ~index : index, 1);
-        return false;
-      })
-      .reverse();
+      i--;
+    }
   };
 
   return TransactionArray;
