@@ -157,6 +157,15 @@ describe('Transaction Array', () => {
       expect(arr2).toEqual([...arr2Init]);
     });
 
+    it('should save correct order items after rollback same value reverse', () => {
+      ta3.push(1);
+      ta4.push(2);
+      ta4.push(1);
+      expect(arr2).toEqual([...arr2Init, 1, 2, 1]);
+      ta3.rollback();
+      expect(arr2).toEqual([...arr2Init, 2, 1]);
+    });
+
     it('should work with different arrays apart', () => {
       ta3.unshift(2);
       ta3.unshift(1);
