@@ -137,7 +137,7 @@ describe('Transaction Array', () => {
       ta3.unshift(2);
       ta4.push(3);
       ta4.push(4);
-      ta3.commit()
+      ta3.commit();
       ta3.rollback();
       ta4.rollback();
       expect(arr2.length).toBe(arr2Init.length + 2);
