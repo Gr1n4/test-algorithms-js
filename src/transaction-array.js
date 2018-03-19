@@ -1,5 +1,6 @@
 // 11:40 - 12:00
 // 12:05 - 12:18
+// ~33 min
 
 'use strict';
 
@@ -53,6 +54,7 @@ const TransactionArray = (function() {
         this._arr.splice(item.method === 'push' ? ~index : index, 1);
         return false;
       })
+      .reverse();
   };
 
   return TransactionArray;
