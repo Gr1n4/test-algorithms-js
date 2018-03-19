@@ -24,7 +24,7 @@ describe('Get sum polland anotation', () => {
     it('Should call 3 times', () => {
       let spy = spyOn(polNot, 'getSumPolandAnotationRec').and.callThrough();
       polNot.getSumPolandAnotationRec('1 23 4 + *');
-      expect(spy).toHaveBeenCalledTimes(3);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
 
     it('Should exception wrong stack of operations', () => {
