@@ -23,6 +23,8 @@ describe('flatten array', () => {
   });
 
   it('should return correct flatten array', () => {
-    expect(fa.flatten([1, [2, 3, 4], 5, [6, [7, 8, [9]], 10], 11])).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+    let someArr = [1, [2, 3, 4], 5, [6, [7, 8, [9]], 10], 11];
+    expect(fa.flatten(someArr)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+    expect(someArr).toEqual([1, [2, 3, 4], 5, [6, [7, 8, [9]], 10], 11]);
   });
 });

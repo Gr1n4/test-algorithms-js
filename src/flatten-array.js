@@ -7,17 +7,18 @@ const FlattenArray = (function() {
     if (!(arr instanceof Array)) {
       throw new Error('Is not array');
     }
+    let array = [...arr];
 
-    for (let i = 0; i < arr.length; i++) {
-      if (!(arr[i] instanceof Array)) {
+    for (let i = 0; i < array.length; i++) {
+      if (!(array[i] instanceof Array)) {
         continue;
       }
 
-      arr.splice(i, 1, ...arr[i]);
+      array.splice(i, 1, ...array[i]);
       i--;
     }
 
-    return arr;
+    return array;
   };
 
   return FlattenArray;
